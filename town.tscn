@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpsyjqrsekuy4"]
+
+[ext_resource type="Script" uid="uid://bxpb16d4yx1p6" path="res://town.gd" id="1_dwdjc"]
+
+[node name="Town" type="Node2D"]
+script = ExtResource("1_dwdjc")
+
+[node name="Button" type="Button" parent="."]
+offset_right = 129.0
+offset_bottom = 56.0
+text = "Town"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -1,0 +1,70 @@
+[gd_scene load_steps=3 format=3 uid="uid://o0ffdoinoyju"]
+
+[ext_resource type="Texture2D" uid="uid://bakoxvo3neq8q" path="res://assets/overworld.png" id="1_pq8q7"]
+[ext_resource type="Script" uid="uid://btead8jexufqc" path="res://game.gd" id="1_vvh5c"]
+
+[node name="Root" type="Node2D"]
+
+[node name="Game" type="Node2D" parent="."]
+script = ExtResource("1_vvh5c")
+
+[node name="BackgroundColor" type="ColorRect" parent="Game"]
+offset_left = -478.0
+offset_top = -314.0
+offset_right = 1793.0
+offset_bottom = 923.0
+color = Color(0.3882353, 0.60784316, 1, 1)
+
+[node name="Overworld" type="Sprite2D" parent="Game"]
+position = Vector2(826.75, 323.75)
+scale = Vector2(5.0742188, 5.0742188)
+texture = ExtResource("1_pq8q7")
+
+[node name="ColorRect" type="ColorRect" parent="Game"]
+offset_left = 15.0
+offset_top = 7.0
+offset_right = 541.0
+offset_bottom = 636.0
+color = Color(0.24313726, 0.24313726, 0.24313726, 0.73333335)
+
+[node name="ButtonGroup" type="Node2D" parent="Game"]
+
+[node name="Button" type="Button" parent="Game/ButtonGroup"]
+offset_left = 760.0
+offset_top = 298.0
+offset_right = 865.0
+offset_bottom = 346.0
+text = "Town"
+
+[node name="MainCanvasGroup" type="CanvasGroup" parent="Game"]
+unique_name_in_owner = true
+
+[node name="Main" type="Node2D" parent="Game/MainCanvasGroup"]
+visible = false
+
+[node name="Town" type="Node2D" parent="Game/MainCanvasGroup"]
+
+[node name="Control" type="Control" parent="Game/MainCanvasGroup/Town"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Game/MainCanvasGroup/Town/Control"]
+layout_mode = 0
+offset_left = 438.0
+offset_top = 20.0
+offset_right = 522.0
+offset_bottom = 61.0
+text = "Close"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Game/MainCanvasGroup/Town/Control"]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 26.0
+offset_right = 423.0
+offset_bottom = 601.0
+text = "Town text"
+
+[connection signal="pressed" from="Game/ButtonGroup/Button" to="Game" method="_town_pressed"]
+[connection signal="pressed" from="Game/MainCanvasGroup/Town/Control/Button" to="Game" method="_reset_menu"]
