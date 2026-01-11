@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://o0ffdoinoyju"]
+[gd_scene load_steps=4 format=3 uid="uid://o0ffdoinoyju"]
 
 [ext_resource type="Texture2D" uid="uid://bakoxvo3neq8q" path="res://assets/overworld.png" id="1_pq8q7"]
-[ext_resource type="Script" uid="uid://btead8jexufqc" path="res://game.gd" id="1_vvh5c"]
+[ext_resource type="Script" uid="uid://btead8jexufqc" path="res://scripts/game.gd" id="1_vvh5c"]
+[ext_resource type="PackedScene" uid="uid://dxegu7b4p8b2t" path="res://battle.tscn" id="3_vvh5c"]
 
 [node name="Root" type="Node2D"]
 
@@ -20,51 +21,125 @@ position = Vector2(826.75, 323.75)
 scale = Vector2(5.0742188, 5.0742188)
 texture = ExtResource("1_pq8q7")
 
-[node name="ColorRect" type="ColorRect" parent="Game"]
+[node name="CanvasLayer" type="CanvasLayer" parent="Game"]
+follow_viewport_enabled = true
+
+[node name="Control" type="Control" parent="Game/CanvasLayer"]
+layout_mode = 3
+anchor_left = 0.019000001
+anchor_top = 0.020000001
+anchor_right = 0.019000001
+anchor_bottom = 0.020000001
+offset_left = -17.888
+offset_top = -7.960001
+offset_right = 539.112
+offset_bottom = 88.04
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Game/CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 1.0
+offset_right = 550.0
+offset_bottom = 40.0
+text = "Days left"
+
+[node name="DayProgressBar" type="ProgressBar" parent="Game/CanvasLayer/Control"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 9.0
+offset_top = 32.0
+offset_right = 533.0
+offset_bottom = 59.0
+tooltip_text = "Day progress"
+max_value = 5.0
+step = 1.0
+value = 5.0
+rounded = true
+fill_mode = 1
+show_percentage = false
+
+[node name="DayProgressLabel" type="RichTextLabel" parent="Game/CanvasLayer/Control"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 242.0
+offset_top = 34.0
+offset_right = 272.0
+offset_bottom = 59.0
+text = "5/5"
+
+[node name="ColorRect" type="ColorRect" parent="Game/CanvasLayer"]
 offset_left = 15.0
-offset_top = 7.0
+offset_top = 187.0
 offset_right = 541.0
 offset_bottom = 636.0
 color = Color(0.24313726, 0.24313726, 0.24313726, 0.73333335)
 
-[node name="ButtonGroup" type="Node2D" parent="Game"]
+[node name="ButtonGroup" type="Node2D" parent="Game/CanvasLayer"]
 
-[node name="Button" type="Button" parent="Game/ButtonGroup"]
+[node name="Button" type="Button" parent="Game/CanvasLayer/ButtonGroup"]
 offset_left = 760.0
 offset_top = 298.0
 offset_right = 865.0
 offset_bottom = 346.0
 text = "Town"
 
-[node name="MainCanvasGroup" type="CanvasGroup" parent="Game"]
+[node name="MainCanvasGroup" type="CanvasGroup" parent="Game/CanvasLayer"]
 unique_name_in_owner = true
 
-[node name="Main" type="Node2D" parent="Game/MainCanvasGroup"]
+[node name="Main" type="Node2D" parent="Game/CanvasLayer/MainCanvasGroup"]
+
+[node name="Control" type="Control" parent="Game/CanvasLayer/MainCanvasGroup/Main"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 22.0
+offset_top = 192.0
+offset_right = 532.0
+offset_bottom = 629.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Game/CanvasLayer/MainCanvasGroup/Main/Control"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 9.0
+offset_right = 408.0
+offset_bottom = 395.0
+text = "Main menu"
+
+[node name="DaysTestBtn" type="Button" parent="Game/CanvasLayer/MainCanvasGroup/Main/Control"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 24.0
+offset_top = 54.0
+offset_right = 129.0
+offset_bottom = 102.0
+text = "Increase days"
+
+[node name="Town" type="Node2D" parent="Game/CanvasLayer/MainCanvasGroup"]
 visible = false
 
-[node name="Town" type="Node2D" parent="Game/MainCanvasGroup"]
-
-[node name="Control" type="Control" parent="Game/MainCanvasGroup/Town"]
+[node name="Control" type="Control" parent="Game/CanvasLayer/MainCanvasGroup/Town"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Button" type="Button" parent="Game/MainCanvasGroup/Town/Control"]
+[node name="Button" type="Button" parent="Game/CanvasLayer/MainCanvasGroup/Town/Control"]
 layout_mode = 0
 offset_left = 438.0
-offset_top = 20.0
+offset_top = 205.0
 offset_right = 522.0
-offset_bottom = 61.0
+offset_bottom = 246.0
 text = "Close"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Game/MainCanvasGroup/Town/Control"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Game/CanvasLayer/MainCanvasGroup/Town/Control"]
 layout_mode = 0
 offset_left = 39.0
-offset_top = 26.0
+offset_top = 215.0
 offset_right = 423.0
 offset_bottom = 601.0
 text = "Town text"
 
-[connection signal="pressed" from="Game/ButtonGroup/Button" to="Game" method="_town_pressed"]
-[connection signal="pressed" from="Game/MainCanvasGroup/Town/Control/Button" to="Game" method="_reset_menu"]
+[node name="Battle" parent="." instance=ExtResource("3_vvh5c")]
+
+[connection signal="pressed" from="Game/CanvasLayer/ButtonGroup/Button" to="Game" method="_town_pressed"]
+[connection signal="pressed" from="Game/CanvasLayer/MainCanvasGroup/Main/Control/DaysTestBtn" to="Game" method="_progress_days"]
+[connection signal="pressed" from="Game/CanvasLayer/MainCanvasGroup/Town/Control/Button" to="Game" method="_reset_menu"]

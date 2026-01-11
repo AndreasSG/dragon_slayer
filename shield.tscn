@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cikohdcb0k68a"]
+
+[ext_resource type="Script" uid="uid://0quudxmm0l0y" path="res://scripts/character.gd" id="1_ffst0"]
+[ext_resource type="Texture2D" uid="uid://dxqfrd6lxm6yr" path="res://assets/characters.png" id="1_vuocu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vuocu"]
+atlas = ExtResource("1_vuocu")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_np0bx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vuocu")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}]
+
+[node name="Shield" type="Node2D"]
+script = ExtResource("1_ffst0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_np0bx")
+animation = &"idle"
